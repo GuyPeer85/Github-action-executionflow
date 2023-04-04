@@ -34,7 +34,10 @@ jobs:
         run: npm ci
       - name: Test code
         run: npm run test
+        id: run-tests
       - name: Upload test report
+        if: steps.run-tests.outcome == 'failure' 
+        # or can do steps.run-tests.outcome.failure
         uses: actions/upload-artifact@v3
         with:
           name: test-report
